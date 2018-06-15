@@ -116,6 +116,35 @@ function deleteItemFromShoppingList(itemIndex){
   STORE.splice(itemIndex,1);
 }
 
+function handleUncheckedButtonClicked(){
+  //need to create a checkbox 
+  //need to toggle to display only unchecked items
+  // Retrieve the item's index in STORE from the data attribute.
+  // Get only checked false turn hide toggle on off.
+  // Re-render the shopping list.
+  
+  $('input[type=checkbox]').on('change', function(){
+    // alert($(this).is(':checked'));
+    const itemIndex = getItemIndexFromElement(event.currentTarget);
+    ///if checked true then toggle all hide
+    ///if clicked again toggle all back 
+    if ($(this).is(':checked') === false) {
+      // alert('check');
+      $('.shopping-item__checked').closest('li').hide();
+    }
+    else {
+      //alert('unchecked');
+      $('.shopping-item__checked').closest('li').show();
+    }
+    // renderShoppingList();
+  });
+}
+
+
+
+
+
+
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the shopping list, and activating our individual functions
 // that handle new item submission and user clicks on the "check" and "delete" buttons
@@ -125,7 +154,7 @@ function handleShoppingList() {
   handleNewItemSubmit();
   handleItemCheckClicked();
   handleDeleteItemClicked();
-
+  handleUncheckedButtonClicked();
 }
 
 // when the page loads, call `handleShoppingList`
