@@ -128,13 +128,13 @@ function handleUncheckedButtonClicked(){
     const itemIndex = getItemIndexFromElement(event.currentTarget);
     ///if checked true then toggle all hide
     ///if clicked again toggle all back 
-    if ($(this).is(':checked') === false) {
-      // alert('check');
-      $('.shopping-item__checked').closest('li').hide();
+    if ($(this).is(':checked')) {
+      // alert('check') and showing all webpage loads this way so flipped hide/show;
+      $('.shopping-item__checked').closest('li').show();
     }
     else {
       //alert('unchecked');
-      $('.shopping-item__checked').closest('li').show();
+      $('.shopping-item__checked').closest('li').hide();
     }
     // renderShoppingList();
   });

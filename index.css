@@ -14,8 +14,15 @@ button:hover {
   cursor: pointer;
 }
 
-div.switch-text{
-  border: red solid 1px;
+div.forum-spacing {
+  margin-top: 10px;
+  /*border: red solid 1px;*/
+}
+
+.switch-text{
+  position: relative;
+  left: 130px;
+  bottom: 25px;
 }
 
 .hidden {
@@ -52,4 +59,14 @@ div.switch-text{
 
 .shopping-item__checked {
   text-decoration: line-through;
+}
+
+.js-shopping-list-entry{
+  position: relative;
+  left:23px;
+}
+
+.js-shopping-list-entry-btn{
+  position: relative;
+  left:24px;
 }
