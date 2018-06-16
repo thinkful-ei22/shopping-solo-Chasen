@@ -38,16 +38,16 @@ function generateShoppingItemsString(shoppingList) {
   return items.join('');
 }
 
-function renderShoppingList() {
+function renderShoppingList(obj=STORE) {
   // render the shopping list in the DOM
   // console.log('`renderShoppingList` ran');
-  const shoppingListItemsString = generateShoppingItemsString(STORE);
+  const shoppingListItemsString = generateShoppingItemsString(obj);
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
 }
 
 function addItemToShoppingList(itemName) {
-  console.log(`Adding "${itemName}" to shopping list`);
+  // console.log(`Adding "${itemName}" to shopping list`);
   STORE.push({name: itemName, checked: false});
 }
 
@@ -63,7 +63,7 @@ function handleNewItemSubmit() {
     event.preventDefault();
 
     const newItemName = $('.js-shopping-list-entry').val();
-    console.log(newItemName);
+    // console.log(newItemName);
     $('.js-shopping-list-entry').val('');
     addItemToShoppingList(newItemName);
     renderShoppingList();
@@ -130,15 +130,28 @@ function handleUncheckedButtonClicked(){
     ///if clicked again toggle all back 
     if ($(this).is(':checked')) {
       // alert('check') and showing all webpage loads this way so flipped hide/show;
-      $('.shopping-item__checked').closest('li').show();
+      $('.shopping-item__checked').closest('li').hide(600);
     }
     else {
       //alert('unchecked');
-      $('.shopping-item__checked').closest('li').hide();
+      $('.shopping-item__checked').closest('li').show(300);
     }
     // renderShoppingList();
   });
 }
+
+function handleItemSearch(){
+  $('#js-search-list-form').submit(function(){
+    event.preventDefault();//prevent default form input processing
+    let searchVal = $('.js-search-entry').val();
+    console.log(searchVal);
+
+    let filteredSearch = STORE.filter(index => index.name===(searchVal));
+    console.log(filteredSearch);
+    renderShoppingList(filteredSearch);
+  });
+}
+
 
 
 
@@ -155,6 +168,7 @@ function handleShoppingList() {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleUncheckedButtonClicked();
+  handleItemSearch();
 }
 
 // when the page loads, call `handleShoppingList`
