@@ -20,7 +20,7 @@ const STORE = [
 function generateItemElement(item, itemIndex, template) {
   return `
     <li class="js-item-index-element" data-item-index="${itemIndex}">
-      <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}</span>
+      <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name.toLowerCase()}</span>
       <div class="shopping-item-controls">
         <button class="shopping-item-toggle js-item-toggle">
             <span class="button-label">check</span>
@@ -141,12 +141,13 @@ function handleUncheckedButtonClicked(){
 }
 
 function handleItemSearch(){
-  $('#js-search-list-form').submit(function(){
+  // $('#js-search-list-form').submit(function(){
+    $('#js-search-list-form').on( 'keyup' , function(){
     event.preventDefault();//prevent default form input processing
-    let searchVal = $('.js-search-entry').val();
+    let searchVal = $('.js-search-entry').val().toLowerCase();
     console.log(searchVal);
 
-    let filteredSearch = STORE.filter(index => index.name===(searchVal));
+    let filteredSearch = STORE.filter(index => index.name.includes(searchVal));
     console.log(filteredSearch);
     renderShoppingList(filteredSearch);
   });
