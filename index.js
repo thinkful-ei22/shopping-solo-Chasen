@@ -157,7 +157,7 @@ function handleItemSearch(){
     event.preventDefault();//prevent default form input processing
     let searchVal = $('.js-search-entry').val().toLowerCase();
     // console.log(searchVal);
-d
+
     let filteredSearch = STORE.filter(index => index.name.includes(searchVal));
     console.log(filteredSearch);
     renderShoppingList(filteredSearch);
@@ -188,8 +188,13 @@ function handleEditItemSubmit(){
   $('.js-shopping-list').on('click', '.item-edit-submit', function(event) {  
     const editedItemName = $('.item-edit-box').val();
     const itemIndex = getItemIndexFromElement(event.currentTarget);
-    STORE[itemIndex].name = editedItemName;
-  
+
+    if(editedItemName !== ''){
+      STORE[itemIndex].name = editedItemName;
+    }else{
+      // $('js.item.edit').
+    };
+
     renderShoppingList();
   });
 }
