@@ -20,10 +20,20 @@ const STORE = [
 function generateItemElement(item, itemIndex, template) {
   return `
     <li class="js-item-index-element" data-item-index="${itemIndex}">
-      <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name.toLowerCase()}</span>
+      <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">
+        ${item.name.toLowerCase()}
+        <input type="text" name="item-edit-entry" class="item-edit-box" placeholder="edit item name">
+        <button class='item-edit-submit hidden'>
+          <span class='button-label'>submit</span>
+        </button>
+      </span>
+      
       <div class="shopping-item-controls">
         <button class="shopping-item-toggle js-item-toggle">
             <span class="button-label">check</span>
+        </button>
+        <button class="shopping-item-edit js-item-edit">
+            <span class="button-label">edit</span>
         </button>
         <button class="shopping-item-delete js-item-delete">
             <span class="button-label">delete</span>
@@ -139,19 +149,53 @@ function handleUncheckedButtonClicked(){
     // renderShoppingList();
   });
 }
+ 
 
 function handleItemSearch(){
   // $('#js-search-list-form').submit(function(){
     $('#js-search-list-form').on( 'keyup' , function(){
     event.preventDefault();//prevent default form input processing
     let searchVal = $('.js-search-entry').val().toLowerCase();
-    console.log(searchVal);
-
+    // console.log(searchVal);
+d
     let filteredSearch = STORE.filter(index => index.name.includes(searchVal));
     console.log(filteredSearch);
     renderShoppingList(filteredSearch);
   });
 }
+
+function handleEditItemInput(){
+  // this function will be responsible for when users click the "edit" button on
+  // a shopping list item.
+  // Listen for when a user clicks the 'edit' button on an item.
+  //make an area for the item to be edited
+  // Retrieve the item's index in STORE from the data attribute.
+  // edit the items name property for the item at that index in STORE.
+  // Re-render the shopping list.
+  $('.js-shopping-list').on('click', '.js-item-edit', event => {
+    // console.log('`handleEditItemClicked` ran');
+    $(event.currentTarget).closest('li').find('.item-edit-box').show();
+    $(event.currentTarget).closest('li').find('.item-edit-submit').show();
+    // console.log(event.currentTarget); 
+    // const itemIndex = getItemIndexFromElement(event.currentTarget);
+    // toggleCheckedForListItem(itemIndex);
+    // renderShoppingList()
+     });
+}
+
+function handleEditItemSubmit(){
+  
+  $('.js-shopping-list').on('click', '.item-edit-submit', function(event) {  
+    const editedItemName = $('.item-edit-box').val();
+    const itemIndex = getItemIndexFromElement(event.currentTarget);
+    STORE[itemIndex].name = editedItemName;
+  
+    renderShoppingList();
+  });
+}
+
+
+
 
 
 
@@ -170,6 +214,8 @@ function handleShoppingList() {
   handleDeleteItemClicked();
   handleUncheckedButtonClicked();
   handleItemSearch();
+  handleEditItemInput();
+  handleEditItemSubmit();
 }
 
 // when the page loads, call `handleShoppingList`

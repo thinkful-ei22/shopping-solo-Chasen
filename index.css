@@ -10,6 +10,10 @@ button, input[type="text"] {
   padding: 5px;
 }
 
+ul{
+  -webkit-margin-before: .6em;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -70,3 +74,12 @@ div.forum-spacing {
   position: relative;
   left:24px;
 }
+
+.item-edit-box {
+  display: inline-block;
+  border-radius: 4px;
+  display: none;
+  width:300px;
+  margin-left: 10px;
+}
+
